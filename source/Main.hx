@@ -212,14 +212,14 @@ class Main extends Sprite
 			    }
 			}
 			var strangePath:String = AndroidTools.getExternalStorageDirectory();
-			if (!FileSystem.exists(strangePath + "/ZoroEngine") || !FileSystem.exists(strangePath + "/.PsychEngine/assets")) {
-				if (!FileSystem.exists(strangePath + "/.PsychEngine")) {
-				    FileSystem.createDirectory(strangePath + "/.PsychEngine");
+			if (!FileSystem.exists(strangePath + "/ZoroEngine") || !FileSystem.exists(strangePath + "/ZoroEngine/assets")) {
+				if (!FileSystem.exists(strangePath + "/ZoroEngine")) {
+				    FileSystem.createDirectory(strangePath + "/ZoroEngine");
 				}
 				Application.current.window.alert("please copy assets/assets folder from apk to *ZoroEngine* folder inside your internal storage, if you won't do like instructions say, game will crash","instructions");
 				flash.system.System.exit(0);
 			} else {
-				storagePath = strangePath + "/.PsychEngine/";
+				storagePath = strangePath + "/ZoroEngine/";
 			}
 		}
 		return storagePath;
