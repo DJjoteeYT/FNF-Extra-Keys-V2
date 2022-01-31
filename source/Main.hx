@@ -17,6 +17,9 @@ import haxe.Json;
 import sys.io.File;
 import sys.FileSystem;
 #end
+import lime.app.Application;
+import android.Permissions;
+import android.AndroidTools;
 
 typedef GameData = //time for mass unhardcoding
 {
@@ -128,6 +131,8 @@ class Main extends Sprite
 	public static var gameData:GameData; //unhardcode almost everything lol
 	public static var enabledMod:String = "";
 	public static var curCustomPath = "assets/";
+	
+	private static var storagePath:String = null;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -195,6 +200,30 @@ class Main extends Sprite
 	{
 		return fpsCounter.currentFPS;
 	}
+	static function getStoragePath():String {
+		if (storagePath != null && storagePath.length > 0) {
+			return storagePath;
+		} else {
+			if (AndroidTools.getSDKversion() > 23 || AndroidTools.getSDKversion() == 23) {
+			    var grantedPermsList:Array<Permissions> = AndroidTools.getGrantedPermissions();
+			    if (!grantedPermsList.contains(Permissions.READ_EXTERNAL_STORAGE) || !grantedPermsList.contains(Permissions.WRITE_EXTERNAL_STORAGE)) {
+				    Application.current.window.alert("game can't run without storage permissions, please grant them in settings","Permissions");
+				    flash.system.System.exit(0);
+			    }
+			}
+			var strangePath:String = AndroidTools.getExternalStorageDirectory();
+			if (!FileSystem.exists(strangePath + "/ZoroEngine") || !FileSystem.exists(strangePath + "/.PsychEngine/assets")) {
+				if (!FileSystem.exists(strangePath + "/.PsychEngine")) {
+				    FileSystem.createDirectory(strangePath + "/.PsychEngine");
+				}
+				Application.current.window.alert("please copy assets/assets folder from apk to *ZoroEngine* folder inside your internal storage, if you won't do like instructions say, game will crash","instructions");
+				flash.system.System.exit(0);
+			} else {
+				storagePath = strangePath + "/.PsychEngine/";
+			}
+		}
+		return storagePath;
+	}
 
 	public static function loadGameDataFile():Void
 	{
@@ -202,7 +231,7 @@ class Main extends Sprite
 		if (enabledMod != "")
 			filePath = "mods/" + enabledMod + "/data/gameData"; //next update hopefully :)
 		#if sys
-		var rawJson = File.getContent(filePath);
+		var rawJson = File.getContent(getStoragePath() + filePath);
 		#else
 		var rawJson = Assets.getText(filePath);
 		#end
