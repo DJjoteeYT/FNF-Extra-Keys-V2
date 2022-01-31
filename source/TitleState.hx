@@ -25,7 +25,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import io.newgrounds.NG;
+//import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
 import flixel.FlxSubState;
@@ -50,6 +50,9 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		//Main.updateGameData();
+                #if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
 		
 		PlayerSettings.init();
 		PlayerSettings.player1.controls.loadKeyBinds();
@@ -297,18 +300,7 @@ class TitleState extends MusicBeatState
 
 			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
-				// Check if version is outdated
-
-				var version:String = "v" + Application.current.meta.get('version');
-
-				if (version.trim() != NGio.GAME_VER_NUMS.trim() && !OutdatedSubState.leftState)
-				{
-					FlxG.switchState(new MainMenuState());
-				}
-				else
-				{
-					FlxG.switchState(new MainMenuState());
-				}
+				FlxG.switchState(new MainMenuState());
 			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
