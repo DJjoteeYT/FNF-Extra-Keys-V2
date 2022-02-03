@@ -25,9 +25,9 @@ class HealthIcon extends FlxSprite
 
 		var path = "assets/images/characters/" + char + "/icon.png";
 		#if sys
-		if (FileSystem.exists(path))
+		if (FileSystem.exists(SUtil.getPath() + path))
 		{
-			var iconGraphic:FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(path));
+			var iconGraphic:FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(SUtil.getPath() + path));
 			//trace("loading da custom icon");
 			loadGraphic(iconGraphic, true, 150, 150);
 			animation.add(char, [0, 1], 0, false, isPlayer);
