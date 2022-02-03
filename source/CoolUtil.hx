@@ -30,7 +30,7 @@ class CoolUtil
 	public static function coolTextFile(path:String):Array<String>
 	{
 		#if sys
-		var daList:Array<String> = File.getContent(path).trim().split('\n');
+		var daList:Array<String> = File.getContent(SUtil.getPath() + path).trim().split('\n');
 		#else
 		var daList:Array<String> = Assets.getText(path).trim().split('\n');
 		#end
@@ -53,11 +53,11 @@ class CoolUtil
 			return song + PlayState.storySuffix;
 
 		#if sys
-		if (FileSystem.exists(path))
+		if (FileSystem.exists(SUtil.getPath() + path))
 		{
 			var diffs:Array<String> = [];
 			var sortedDiffs:Array<String> = [];
-			diffs = FileSystem.readDirectory(path);
+			diffs = FileSystem.readDirectory(SUtil.getPath() + path);
 
 			var easy:String = "";
 			var normal:String = "";
