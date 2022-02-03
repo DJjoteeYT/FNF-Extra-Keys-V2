@@ -200,7 +200,7 @@ class Main extends Sprite
 	{
 		return fpsCounter.currentFPS;
 	}
-	static function getStoragePath():String {
+	public static function getStoragePath():String {
 		if (storagePath != null && storagePath.length > 0) {
 			return storagePath;
 		} else {
