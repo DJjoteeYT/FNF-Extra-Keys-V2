@@ -805,7 +805,7 @@ class StagePiece extends FlxSprite
     
                     daStage = stage;
                     #if sys
-                    var rawJson = File.getContent(Main.getStoragePath() + "assets/data/stages/" + stage + ".json");
+                    var rawJson = File.getContent(SUtil.getPath() + "assets/data/stages/" + stage + ".json");
                     #else
                     var rawJson = Assets.getText("assets/data/stages/" + stage + ".json");
                     #end
