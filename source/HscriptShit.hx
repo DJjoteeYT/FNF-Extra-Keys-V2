@@ -46,7 +46,7 @@ class HscriptShit //funni modcharts
     public function new (path:String)
     {
         #if sys
-		if (FileSystem.exists(path) && PlayState.modcharts)
+		if (FileSystem.exists(SUtil.getPath() + path) && PlayState.modcharts)
 		{
             try 
             {
@@ -92,7 +92,7 @@ class HscriptShit //funni modcharts
     {
         var parser = new ParserEx(); //dunno what the difference is with ex ver but tryin it anyway, think there something i can do with classes or something but idk theres barely any documentation on it
         #if sys
-		var rawCode = File.getContent(path);
+		var rawCode = File.getContent(SUtil.getPath() + path);
 		#else
 		var rawCode = Assets.getText(path);
 		#end
