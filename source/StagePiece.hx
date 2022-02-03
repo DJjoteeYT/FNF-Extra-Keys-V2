@@ -468,7 +468,7 @@ class StagePiece extends FlxSprite
 
             default: 
 
-                var jsonPath = Paths.imageJson("customStagePieces/" + part + "/data");
+                var jsonPath = Main.getStoragePath() + Paths.imageJson("customStagePieces/" + part + "/data");
                 var jsonExists = true;
                 #if sys
                 if (!FileSystem.exists(jsonPath))
@@ -488,7 +488,7 @@ class StagePiece extends FlxSprite
                 if (jsonExists)
                     json = cast Json.parse(rawJson);
 
-                var imagePath = "assets/images/customStagePieces/" + part + "/image.png";
+                var imagePath = Main.getStoragePath() + "assets/images/customStagePieces/" + part + "/image.png";
                 var imageExists:Bool = true;
                 #if sys
                 if (!FileSystem.exists(imagePath))
@@ -516,7 +516,7 @@ class StagePiece extends FlxSprite
                 {
                     if (json.isAnimated)
                         {
-                            var xmlPath = "assets/images/customStagePieces/" + part + "/image.xml";
+                            var xmlPath = Main.getStoragePath() + "assets/images/customStagePieces/" + part + "/image.xml";
                             var xml:String;
         
                             if (CacheShit.xmls[xmlPath] != null) //check if xml is stored in cache
@@ -805,7 +805,7 @@ class StagePiece extends FlxSprite
     
                     daStage = stage;
                     #if sys
-                    var rawJson = File.getContent("assets/data/stages/" + stage + ".json");
+                    var rawJson = File.getContent(Main.getStoragePath() + "assets/data/stages/" + stage + ".json");
                     #else
                     var rawJson = Assets.getText("assets/data/stages/" + stage + ".json");
                     #end
