@@ -153,7 +153,7 @@ class Paths
 			if (isCustom)
 			{
 				#if sys
-				xml = File.getContent('assets/images/$key.xml');
+				xml = File.getContent(SUtil.getPath() + 'assets/images/$key.xml');
 				#else
 				xml = file('images/$key.xml', library);
 				#end
@@ -183,11 +183,11 @@ class Paths
 	static private function checkForImage(path:String)
 	{
 		#if sys
-		if(FileSystem.exists(image(path)))
+		if(FileSystem.exists(SUtil.getPath() + image(path)))
 		{
 			if (CacheShit.images[path] == null)
 			{
-				var imageGraphic:FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(image(path)));
+				var imageGraphic:FlxGraphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(SUtil.getPath() + image(path)));
 				imageGraphic.persist = true;
 				CacheShit.images[path] = imageGraphic;
 			}
