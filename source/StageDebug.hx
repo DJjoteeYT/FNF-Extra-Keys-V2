@@ -623,7 +623,7 @@ class StageDebug extends MusicBeatState
 
         if ((data != null) && (data.length > 0))
         {
-            var path = AndroidTools.openFileManager(AndroidTools.getFileUrl(Main.getStoragePath()), "select folder where file will be stored", "*/*", Intent.ACTION_SEND, 0);
+            var path = AndroidTools.openFileManager(AndroidTools.getFileUrl(SUtil.getPath()), "select folder where file will be stored", "*/*", Intent.ACTION_SEND, 0);
             trace("ZOROENGINELOG:" + "saving stage peace json file in: " + path + "/data.json");
             File.saveContent(path + "data.json", data.trim());
         }
@@ -655,7 +655,7 @@ class StageDebug extends MusicBeatState
 
         if ((data != null) && (data.length > 0))
         {
-            var path = AndroidTools.openFileManager(AndroidTools.getFileUrl(Main.getStoragePath()), "select folder where file will be stored", "*/*", Intent.ACTION_SEND, 0);
+            var path = AndroidTools.openFileManager(AndroidTools.getFileUrl(SUtil.getPath()), "select folder where file will be stored", "*/*", Intent.ACTION_SEND, 0);
             trace("ZOROENGINELOG:" + "saving stage json file in: " + path + json.name.toLowerCase() + ".json");
             File.saveContent(path + json.name.toLowerCase() + ".json", data.trim());
         }
