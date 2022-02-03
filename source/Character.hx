@@ -845,7 +845,7 @@ class Character extends FlxSprite
 				addPosOffset('pos', -500, 0);
 
 			default:  	///custom character shit
-				var imagePath = "assets/images/characters/" + curGraphic + "/image.png";
+				var imagePath = SUtil.getPath() + "assets/images/characters/" + curGraphic + "/image.png";
 				var imageGraphic:FlxGraphic;
 
 				if (CacheShit.images[imagePath] == null)
@@ -856,7 +856,7 @@ class Character extends FlxSprite
 				}
 				imageGraphic = CacheShit.images[imagePath];
 
-				var xmlPath = "assets/images/characters/" + curGraphic + "/image.xml";
+				var xmlPath = SUtil.getPath() + "assets/images/characters/" + curGraphic + "/image.xml";
 				var xml:String;
 
 				if (CacheShit.xmls[xmlPath] != null) //check if xml is stored in cache
@@ -876,7 +876,7 @@ class Character extends FlxSprite
 				frames = tex;
 
 				#if sys
-				var rawJson = File.getContent(Paths.imageJson("characters/" + curGraphic + "/offsets"));
+				var rawJson = File.getContent(SUtil.getPath() + Paths.imageJson("characters/" + curGraphic + "/offsets"));
 				#else
 				var rawJson = Assets.getText(Paths.imageJson("characters/" + curGraphic + "/offsets"));
 				#end
