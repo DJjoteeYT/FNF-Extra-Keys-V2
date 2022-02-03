@@ -56,7 +56,7 @@ class Song
 	{
 
 		#if sys
-		var rawJson = File.getContent(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
+		var rawJson = File.getContent(SUtil.getPath() + Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
 		#else
 		var rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
 		#end
