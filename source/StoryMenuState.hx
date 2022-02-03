@@ -151,7 +151,7 @@ class StoryMenuState extends MusicBeatState
 		}
 
 		#if sys
-		var rawJson = File.getContent(Paths.imageJson("storymenu/menu"));
+		var rawJson = File.getContent(SUtil.getPath() + Paths.imageJson("storymenu/menu"));
 		#else
 		var rawJson = Assets.getText(Paths.imageJson("storymenu/menu"));
 		#end
