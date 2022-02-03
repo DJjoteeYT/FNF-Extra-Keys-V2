@@ -21,7 +21,6 @@ import openfl.events.IOErrorEvent;
 import openfl.events.IOErrorEvent;
 import openfl.events.IOErrorEvent;
 import openfl.media.Sound;
-import openfl.net.FileReference;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
@@ -31,6 +30,9 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import openfl.filters.ShaderFilter;
+import android.AndroidTools;
+import android.Intent;
+import sys.io.File;
 using StringTools;
 import Shaders;
 
@@ -38,8 +40,6 @@ import openfl.desktop.Clipboard;
 
 class StageDebug extends MusicBeatState
 {
-    var _file:FileReference;
-
     var camFollow:FlxObject;
     var daStage:String = "stage";
     var StagePieces:FlxTypedGroup<DebugStagePiece>;
@@ -623,11 +623,9 @@ class StageDebug extends MusicBeatState
 
         if ((data != null) && (data.length > 0))
         {
-            _file = new FileReference();
-            _file.addEventListener(Event.COMPLETE, onSaveComplete);
-            _file.addEventListener(Event.CANCEL, onSaveCancel);
-            _file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-            _file.save(data.trim(), "data.json");
+            var path = AndroidTools.openFileManager(AndroidTools.getFileUrl(Main.getStoragePath()), "select folder where file will be stored", "*/*", Intent.ACTION_SEND, 0);
+            trace("ZOROENGINELOG:" + "saving stage peace json file in: " + path + "/StagePeaceSave.json");
+            File.saveContent(path + json.name.toLowerCase() + ".json", data.trim());
         }
     }
 
@@ -657,47 +655,11 @@ class StageDebug extends MusicBeatState
 
         if ((data != null) && (data.length > 0))
         {
-            _file = new FileReference();
-            _file.addEventListener(Event.COMPLETE, onSaveComplete);
-            _file.addEventListener(Event.CANCEL, onSaveCancel);
-            _file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-            _file.save(data.trim(), json.name.toLowerCase() + ".json");
+            var path = AndroidTools.openFileManager(AndroidTools.getFileUrl(Main.getStoragePath()), "select folder where file will be stored", "*/*", Intent.ACTION_SEND, 0);
+            trace("ZOROENGINELOG:" + "saving stage json file in: " + path + "/StagePeaceSave.json");
+            File.saveContent(path + json.name.toLowerCase() + ".json", data.trim());
         }
     }
-
-    function onSaveComplete(_):Void
-    {
-        _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-        _file.removeEventListener(Event.CANCEL, onSaveCancel);
-        _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-        _file = null;
-        FlxG.log.notice("Successfully saved LEVEL DATA.");
-    }
-
-    /**
-     * Called when the save file dialog is cancelled.
-     */
-    function onSaveCancel(_):Void
-    {
-        _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-        _file.removeEventListener(Event.CANCEL, onSaveCancel);
-        _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-        _file = null;
-    }
-
-    /**
-     * Called if there is an error while saving the gameplay recording.
-     */
-    function onSaveError(_):Void
-    {
-        _file.removeEventListener(Event.COMPLETE, onSaveComplete);
-        _file.removeEventListener(Event.CANCEL, onSaveCancel);
-        _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-        _file = null;
-        FlxG.log.error("Problem saving Level data");
-    }
-
-
 }
 
 
