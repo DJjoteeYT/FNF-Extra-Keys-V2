@@ -66,7 +66,7 @@ class FreeplayState extends MusicBeatState
 			if (useAutoDiffSystem)
 			{
 				#if sys
-				var path = "assets/data/charts/" + data[0];
+				var path = SUtil.getPath() + "assets/data/charts/" + data[0];
 				if (FileSystem.exists(path))
 				{
 					var diffs:Array<String> = [];
